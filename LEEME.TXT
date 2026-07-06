@@ -1,0 +1,16 @@
+========================================================================
+                      TP FINAL - GAME VAULT
+========================================================================
+
+Este directorio de Google Drive contiene los archivos fuentes del proyecto 
+requeridos para la entrega.
+
+Para facilitar la corrección, revisión del historial de cambios y 
+visualización del proyecto en producción, pongo a disposición los 
+siguientes links:
+
+[REPOSITORIO]
+URL: https://github.com/ricardo-perez/Programacion-3-TP-Final
+
+[SITIO]
+URL: https://programacion-3-tp-final.vercel.app/
