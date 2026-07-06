@@ -1,4 +1,4 @@
-const product = [
+const gamesList = [
   {
     id: 1,
     name: 'Clair Obscur: Expedition 33',
@@ -99,5 +99,102 @@ const product = [
     img: 'https://i.ibb.co/gbSX3rG0/86f2dc1b9671f25a13ff92e069b51786.jpg',
   },
 ];
-const init = () => {};
+let cart = [];
+
+const offcanvas = document.getElementById('offcanvas-cart');
+const cartItemTemplate = document.getElementById('cart-item-template');
+const cartList = offcanvas.querySelector('ul');
+const cartTotal = document.getElementById('cart-total');
+const cartCount = document.getElementById('cart-count');
+
+const updateCartUI = () => {
+  cartList.innerHTML = '';
+  cart.forEach((gameInCart) => {
+    const list = cartItemTemplate.content.cloneNode(true);
+    list.querySelector('h6').textContent = gameInCart.name;
+    list.querySelector('small').textContent = `$${gameInCart.price.toFixed(2)}`;
+    list.querySelector('.js-cart-item-qty').textContent = gameInCart.quantity;
+    list.querySelector('.js-cart-item-subtotal').textContent =
+      `$${(gameInCart.price * gameInCart.quantity).toFixed(2)}`;
+    list.querySelector('button').onclick = () => {
+      removeFromCart(gameInCart.id);
+    };
+    cartList.appendChild(list);
+  });
+  const total = cart.reduce((acc, game) => acc + game.quantity * game.price, 0);
+  cartTotal.textContent = `$${total.toFixed(2)}`;
+  cartCount.textContent = cart.reduce((acc, game) => acc + game.quantity, 0);
+};
+const addToCart = (gameId) => {
+  const existingGame = cart.find((game) => game.id === gameId);
+  if (existingGame) {
+    existingGame.quantity++;
+  } else {
+    const gameData = gamesList.find((game) => game.id === gameId);
+    cart.push({
+      id: gameId,
+      name: gameData.name,
+      quantity: 1,
+      price: gameData.price,
+    });
+  }
+  updateCartUI();
+};
+const removeFromCart = (gameId) => {
+  cart = cart.filter((game) => game.id !== gameId);
+  updateCartUI();
+};
+const clearCart = () => {
+  cart = [];
+  updateCartUI();
+};
+
+const createCard = (template, game) => {
+  const card = template.content.cloneNode(true);
+  const img = card.querySelector('img');
+  img.src = game.img;
+  img.alt = game.name;
+  card.querySelector('time').textContent = game.year;
+  card.querySelector('h2').textContent = game.name;
+
+  const platformContainer = card.querySelector('.js-platform-container');
+  const platformModel = platformContainer.querySelector('span');
+  game.platforms.forEach((platform, index) => {
+    const platformSpan = platformModel.cloneNode(true);
+    platformSpan.textContent = platform;
+    platformContainer.appendChild(platformSpan);
+  });
+  platformModel.remove();
+
+  card.querySelector('.js-genres').textContent = game.genres.join(', ');
+  card.querySelector('.js-rating').textContent = game.rating.toFixed(2);
+  card.querySelector('.js-price').textContent = game.price.toFixed(2);
+
+  card.querySelector('button').onclick = () => addToCart(game.id);
+
+  return card;
+};
+const createProducts = (gamesList) => {
+  const template = document.getElementById('product-template');
+  const container = document.getElementById('products');
+  gamesList.forEach((game) => {
+    const card = createCard(template, game);
+    container.appendChild(card);
+  });
+};
+const init = () => {
+  document.getElementById('cart-btn-buy').onclick = () => {
+    if (cart.length > 0) {
+      alert('Compra realizada con éxito');
+      clearCart();
+    }
+  };
+  document.getElementById('cart-btn-clear').onclick = () => {
+    if (cart.length > 0) {
+      clearCart();
+    }
+  };
+  createProducts(gamesList);
+  updateCartUI();
+};
 init();
