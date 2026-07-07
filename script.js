@@ -184,13 +184,15 @@ const createProducts = (gamesList) => {
 };
 const contact = () => {
   const contactForm = document.getElementById('contactForm');
-  const contactModal = new bootstrap.Modal(
+  const contactModal = bootstrap.Modal.getOrCreateInstance(
     document.getElementById('contactModal'),
   );
   contactForm.addEventListener('submit', () => {
     alert('Mensaje enviado correctamente.');
-    contactForm.reset();
-    contactModal.hide();
+    setTimeout(() => {
+      contactForm.reset();
+      contactModal.hide();
+    }, 125);
   });
 };
 const init = () => {
