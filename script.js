@@ -182,6 +182,17 @@ const createProducts = (gamesList) => {
     container.appendChild(card);
   });
 };
+const contact = () => {
+  const contactForm = document.getElementById('contactForm');
+  const contactModal = new bootstrap.Modal(
+    document.getElementById('contactModal'),
+  );
+  contactForm.addEventListener('submit', () => {
+    alert('Mensaje enviado correctamente.');
+    contactForm.reset();
+    contactModal.hide();
+  });
+};
 const init = () => {
   document.getElementById('cart-btn-buy').onclick = () => {
     if (cart.length > 0) {
@@ -196,5 +207,6 @@ const init = () => {
   };
   createProducts(gamesList);
   updateCartUI();
+  contact();
 };
 init();

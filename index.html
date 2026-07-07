@@ -17,8 +17,10 @@
       class="container-xl bg-dark border-start border-bottom border-end sticky-top"
     >
       <nav class="navbar">
-        <div class="container-fluid">
-          <div class="navbar-brand d-inline-flex align-items-center">
+        <div
+          class="container-fluid d-flex align-items-center justify-content-between"
+        >
+          <div class="navbar-brand d-inline-flex align-items-center m-0">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -40,37 +42,47 @@
             </svg>
             <h1 class="text-white m-0 fs-4 fw-bold">Game Vault</h1>
           </div>
-          <a
-            data-bs-toggle="offcanvas"
-            href="#offcanvas-cart"
-            role="button"
-            class="position-relative d-inline-block"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+          <div class="d-flex align-items-center ms-auto">
+            <a
+              data-bs-toggle="modal"
+              href="#contactModal"
+              role="button"
+              class="text-white text-decoration-none me-3"
             >
-              <circle cx="9" cy="21" r="1"></circle>
-              <circle cx="20" cy="21" r="1"></circle>
-              <path
-                d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
-              ></path>
-            </svg>
-            <span
-              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-              id="cart-count"
+              Contacto
+            </a>
+            <a
+              data-bs-toggle="offcanvas"
+              href="#offcanvas-cart"
+              role="button"
+              class="position-relative d-inline-block"
             >
-              0
-              <span class="visually-hidden">Artículos en el carrito</span>
-            </span>
-          </a>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path
+                  d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
+                ></path>
+              </svg>
+              <span
+                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                id="cart-count"
+              >
+                0
+                <span class="visually-hidden">Artículos en el carrito</span>
+              </span>
+            </a>
+          </div>
         </div>
       </nav>
     </header>
@@ -87,7 +99,6 @@
           type="button"
           class="btn-close"
           data-bs-dismiss="offcanvas"
-          aria-label="Close"
         ></button>
       </div>
       <div class="offcanvas-body d-flex flex-column justify-content-between">
@@ -102,7 +113,6 @@
             class="btn btn-success w-100 mb-2 fw-bold"
             data-bs-toggle="offcanvas"
             data-bs-target="#offcanvas-cart"
-            aria-controls="offcanvas-cart"
             id="cart-btn-buy"
           >
             INICIAR COMPRA
@@ -112,11 +122,83 @@
             class="btn btn-outline-danger w-100 fw-bold"
             data-bs-toggle="offcanvas"
             data-bs-target="#offcanvas-cart"
-            aria-controls="offcanvas-cart"
             id="cart-btn-clear"
           >
             VACIAR CARRITO
           </button>
+        </div>
+      </div>
+    </div>
+    <div
+      class="modal fade"
+      id="contactModal"
+      data-bs-backdrop="static"
+      tabindex="-1"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5">Contacto</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form
+              action="https://formsubmit.co/ricardo.perez.brivio@gmail.com"
+              method="POST"
+              enctype="multipart/form-data"
+              target="_blank"
+              id="contactForm"
+            >
+              <div class="mb-3">
+                <label for="contactName" class="form-label"
+                  >Nombre (requerido)</label
+                >
+                <input
+                  id="contactName"
+                  type="text"
+                  class="form-control"
+                  placeholder="Ej: Juan Pérez"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="contactEmail" class="form-label"
+                  >Correo electrónico (requerido)</label
+                >
+                <input
+                  id="contactEmail"
+                  type="email"
+                  class="form-control"
+                  placeholder="Ej: correo@example.com"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="contactMessage" class="form-label"
+                  >Mensaje (requerido)</label
+                >
+                <textarea
+                  id="contactMessage"
+                  class="form-control"
+                  rows="3"
+                  placeholder="Escriba su mensaje aquí..."
+                  required
+                ></textarea>
+              </div>
+              <div class="d-flex justify-content-end gap-2">
+                <button type="reset" class="btn btn-secondary">
+                  Limpiar formulario
+                </button>
+                <button type="submit" class="btn btn-success">
+                  Enviar mensaje
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
@@ -163,7 +245,6 @@
               class="btn btn-light w-100"
               data-bs-toggle="offcanvas"
               data-bs-target="#offcanvas-cart"
-              aria-controls="offcanvas-cart"
             >
               <strong>AGREGAR AL CARRITO</strong>
             </button>
